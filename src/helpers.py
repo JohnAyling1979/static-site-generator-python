@@ -31,13 +31,13 @@ Extracts all the images from a text string.
 """
 def extract_markdown_images(text):
     images = []
-    for image in re.findall(r"!\[(.*?)\]\((.*?)\)", text):
+    for image in re.findall(r"!\[([^\[\]]*)\]\(([^\(\)]*)\)", text):
         images.append(image)
     return images
 
 def extract_markdown_links(text):
     links = []
-    for link in re.findall(r"\[(.*?)\]\((.*?)\)", text):
+    for link in re.findall(r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)", text):
         links.append(link)
     return links
 

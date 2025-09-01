@@ -1,6 +1,12 @@
 import unittest
 
-from helpers import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_image, split_nodes_link
+from helpers import (
+    split_nodes_delimiter,
+    extract_markdown_images,
+    extract_markdown_links,
+    split_nodes_image,
+    split_nodes_link,
+)
 from textnode import TextNode, TextType
 
 class TestHelpers(unittest.TestCase):

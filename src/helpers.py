@@ -35,6 +35,12 @@ def extract_markdown_images(text):
         images.append(image)
     return images
 
+def extract_markdown_links(text):
+    links = []
+    for link in re.findall(r"\[(.*?)\]\((.*?)\)", text):
+        links.append(link)
+    return links
+
 def split_nodes_image(old_nodes):
     pass
 

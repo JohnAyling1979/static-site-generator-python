@@ -75,15 +75,28 @@ def split_nodes_link(old_nodes):
             if (len(links) == 0):
                 if node.text != "":
                     new_nodes.append(node)
+            else:
+                link = links[0]
+                link_text = link[0]
+                link_url = link[1]
+                sections = node.text.split(f"[{link_text}]({link_url})", 1)
 
-            link = links[0]
-            link_text = link[0]
-            link_url = link[1]
-            sections = node.text.split(f"[{link_text}]({link_url})", 1)
-
-            if sections[0] != "":
-                new_nodes.append(TextNode(sections[0], TextType.TEXT))
-            new_nodes.append(TextNode(link_text, TextType.LINK, link_url))
-            if sections[1] != "":
-                new_nodes.extend(split_nodes_link([TextNode(sections[1], TextType.TEXT)]))
+                if sections[0] != "":
+                    new_nodes.append(TextNode(sections[0], TextType.TEXT))
+                new_nodes.append(TextNode(link_text, TextType.LINK, link_url))
+                if sections[1] != "":
+                    new_nodes.extend(split_nodes_link([TextNode(sections[1], TextType.TEXT)]))
     return new_nodes
+
+def text_to_textnodes(text):
+    text_nodes = []
+
+    text_node = TextNode(text, TextType.TEXT)
+    text_nodes = split_nodes_image([text_node])
+    text_nodes = split_nodes_link(text_nodes)
+    text_nodes = split_nodes_delimiter(text_nodes, "`", TextType.CODE)
+    text_nodes = split_nodes_delimiter(text_nodes, "**", TextType.BOLD)
+    text_nodes = split_nodes_delimiter(text_nodes, "_", TextType.ITALIC)
+
+    return text_nodes
+    

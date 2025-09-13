@@ -14,7 +14,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             sections = node.text.split(delimiter)
             if (len(sections) % 2 == 0):
                 raise ValueError("Invalid text node")
-            
+
             is_text = True
             for section in sections:
                 if (is_text):
@@ -23,7 +23,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
                     new_nodes.append(TextNode(section, text_type))
                 is_text = not is_text
 
-            
+
     return new_nodes
 
 """
@@ -99,4 +99,17 @@ def text_to_textnodes(text):
     text_nodes = split_nodes_delimiter(text_nodes, "_", TextType.ITALIC)
 
     return text_nodes
-    
+
+def markdown_to_blocks(markdown):
+    lines = markdown.split("\n\n")
+    blocks = []
+
+    for line in lines:
+        line = line.strip("\n")
+        line = line.strip("\t")
+        line = line.strip()
+
+        if line != "":
+            blocks.append(line)
+
+    return blocks

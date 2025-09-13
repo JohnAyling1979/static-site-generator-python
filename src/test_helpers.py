@@ -7,6 +7,7 @@ from helpers import (
     split_nodes_image,
     split_nodes_link,
     text_to_textnodes,
+    markdown_to_blocks,
 )
 from textnode import TextNode, TextType
 
@@ -52,7 +53,7 @@ class TestHelpers(unittest.TestCase):
         self.assertEqual(new_nodes[4].text_type, TextType.TEXT)
 
 
-    ''' 
+    '''
         should throw an error
     '''
     def test_split_nodes_delimiter_code_open(self):
@@ -180,4 +181,24 @@ class TestHelpers(unittest.TestCase):
                 TextNode("This is just text", TextType.TEXT),
             ],
             nodes,
+        )
+
+    def test_markdown_to_blocks(self):
+        md = """
+This is **bolded** paragraph
+
+This is another paragraph with _italic_ text and `code` here
+This is the same paragraph on a new line
+
+- This is a list
+- with items
+"""
+        blocks = markdown_to_blocks(md)
+        self.assertEqual(
+            blocks,
+            [
+                "This is **bolded** paragraph",
+                "This is another paragraph with _italic_ text and `code` here\nThis is the same paragraph on a new line",
+                "- This is a list\n- with items",
+            ],
         )

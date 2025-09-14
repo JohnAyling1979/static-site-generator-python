@@ -9,7 +9,8 @@ from type_helpers import (
     text_to_textnodes,
     markdown_to_blocks,
 )
-from text_node import TextNode, TextType
+from text_node import TextNode
+from text_type import TextType
 
 class TestHelpers(unittest.TestCase):
     def test_split_nodes_delimiter_code_one(self):
